@@ -431,12 +431,13 @@ void cWorld::UpdateWeather(void)
 	m_RainDensity = std::max(0.0f, std::min(1.0f, m_RainDensity + RainDensityAddend));
 
 	// Send rain density when it changed
-	if (m_RainDensity != LastRainDensity) {
+	if (m_RainDensity != LastRainDensity)
+	{
 		BroadcastRainDensity(m_RainDensity);
 	}
 
-	//TODO: when is thundering, smooth sky darkness as well
-	//Light level falls to 10 during daytime. Like rain, thunderstorms won't reduce the light level below 4 at night. [minecraft.gamepedia.com/Thunder]
+	// TODO: when is thundering, smooth sky darkness as well
+	// Light level falls to 10 during daytime. Like rain, thunderstorms won't reduce the light level below 4 at night. [minecraft.gamepedia.com/Thunder]
 }
 
 
