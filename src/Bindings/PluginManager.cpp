@@ -1072,7 +1072,20 @@ bool cPluginManager::CallHookPlayerUsingItem(cPlayer & a_Player, int a_BlockX, i
 }
 
 
+bool cPluginManager::CallHookPlayerWindowClick(cPlayer & a_Player, char a_WindowID, short a_SlotNum, eClickAction a_ClickAction, const cItems & a_HeldItem)
+{
+	FIND_HOOK(HOOK_PLAYER_WINDOW_CLICK);
+	VERIFY_HOOK;
 
+	for (PluginList::iterator itr = Plugins->second.begin(); itr != Plugins->second.end(); ++itr)
+	{
+		if ((*itr)->OnPlayerWindowClick(a_Player, a_WindowID, a_SlotNum, a_ClickAction, a_HeldItem))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 
 bool cPluginManager::CallHookPluginMessage(cClientHandle & a_Client, const AString & a_Channel, const AString & a_Message)

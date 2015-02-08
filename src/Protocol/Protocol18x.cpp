@@ -2184,7 +2184,10 @@ void cProtocol180::HandlePacketClientSettings(cByteBuffer & a_ByteBuffer)
 	
 	m_Client->SetLocale(Locale);
 	m_Client->SetViewDistance(ViewDistance);
-	// TODO: Handle other values
+	m_Client->SetSkinFlags(SkinFlags);
+
+	/** Broadcast skin flags */
+	m_Client->BroadcastMetadata();
 }
 
 
@@ -3076,7 +3079,11 @@ void cProtocol180::cPacketizer::WriteEntityMetadata(const cEntity & a_Entity)
 	
 	switch (a_Entity.GetEntityType())
 	{
-		case cEntity::etPlayer: break;  // TODO?
+		case cEntity::etPlayer: {
+			WriteByte(0 << 5 | 10 & 0x1F);
+			WriteChar(((const cPlayer &)a_Entity).GetClientHandle() -> GetSkinFlags());
+			break;  // TODO?
+		}
 		case cEntity::etPickup:
 		{
 			WriteByte((5 << 5) | 10);  // Slot(5) + index 10

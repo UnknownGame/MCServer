@@ -1084,6 +1084,22 @@ bool cPluginLua::OnPlayerUsingItem(cPlayer & a_Player, int a_BlockX, int a_Block
 }
 
 
+bool cPluginLua::OnPlayerWindowClick(cPlayer & a_Player, char a_WindowID, short a_SlotNum, eClickAction a_ClickAction, const cItems & a_HeldItem)
+{
+	cCSLock Lock(m_CriticalSection);
+	bool res = false;
+	cLuaRefs & Refs = m_HookMap[cPluginManager::HOOK_PLAYER_WINDOW_CLICK];
+	for (cLuaRefs::iterator itr = Refs.begin(), end = Refs.end(); itr != end; ++itr)
+	{
+		m_LuaState.Call((int)(**itr), &a_Player, a_WindowID, a_SlotNum, a_ClickAction, a_HeldItem, cLuaState::Return, res);
+		if (res)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 
 
@@ -1598,6 +1614,7 @@ const char * cPluginLua::GetHookFnName(int a_HookType)
 		case cPluginManager::HOOK_PLAYER_USED_ITEM:             return "OnPlayerUsedItem";
 		case cPluginManager::HOOK_PLAYER_USING_BLOCK:           return "OnPlayerUsingBlock";
 		case cPluginManager::HOOK_PLAYER_USING_ITEM:            return "OnPlayerUsingItem";
+		case cPluginManager::HOOK_PLAYER_WINDOW_CLICK:          return "OnPlayerWindowClick";
 		case cPluginManager::HOOK_PLUGIN_MESSAGE:               return "OnPluginMessage";
 		case cPluginManager::HOOK_PLUGINS_LOADED:               return "OnPluginsLoaded";
 		case cPluginManager::HOOK_POST_CRAFTING:                return "OnPostCrafting";

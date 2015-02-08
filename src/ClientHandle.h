@@ -227,6 +227,15 @@ public:  // tolua_export
 	/** Returns the view distance that the player currently have. */
 	int GetViewDistance(void) const { return m_CurrentViewDistance; }
 
+	/** Sets the skin flags. */
+	void SetSkinFlags(char a_SkinFlags) { m_SkinFlags = a_SkinFlags; }
+
+	/** Returns the skin flags. */
+	char GetSkinFlags(void) const { return m_SkinFlags; }
+
+	/** Broadcast metadata */
+	void BroadcastMetadata(void);
+
 	/** Returns the view distance that the player request, not the used view distance. */
 	int GetRequestedViewDistance(void) const { return m_RequestedViewDistance; }
 
@@ -480,6 +489,8 @@ private:
 	/** Shared pointer to self, so that this instance can keep itself alive when needed. */
 	cClientHandlePtr m_Self;
 
+	/** SkinFlags of client settings */
+	char m_SkinFlags;
 
 	/** Returns true if the rate block interactions is within a reasonable limit (bot protection) */
 	bool CheckBlockInteractionsRate(void);

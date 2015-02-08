@@ -114,6 +114,7 @@ public:
 		HOOK_PLAYER_USED_ITEM,
 		HOOK_PLAYER_USING_BLOCK,
 		HOOK_PLAYER_USING_ITEM,
+		HOOK_PLAYER_WINDOW_CLICK,
 		HOOK_PLUGIN_MESSAGE,
 		HOOK_PLUGINS_LOADED,
 		HOOK_POST_CRAFTING,
@@ -220,6 +221,7 @@ public:
 	bool CallHookPlayerUsedItem           (cPlayer & a_Player, int a_BlockX, int a_BlockY, int a_BlockZ, char a_BlockFace, int a_CursorX, int a_CursorY, int a_CursorZ);
 	bool CallHookPlayerUsingBlock         (cPlayer & a_Player, int a_BlockX, int a_BlockY, int a_BlockZ, char a_BlockFace, int a_CursorX, int a_CursorY, int a_CursorZ, BLOCKTYPE a_BlockType, NIBBLETYPE a_BlockMeta);
 	bool CallHookPlayerUsingItem          (cPlayer & a_Player, int a_BlockX, int a_BlockY, int a_BlockZ, char a_BlockFace, int a_CursorX, int a_CursorY, int a_CursorZ);
+	bool CallHookPlayerWindowClick        (cPlayer & a_Player, char a_WindowID, short a_SlotNum, eClickAction a_ClickAction, const cItems & a_HeldItem);
 	bool CallHookPluginMessage            (cClientHandle & a_Client, const AString & a_Channel, const AString & a_Message);
 	bool CallHookPluginsLoaded            (void);
 	bool CallHookPostCrafting             (cPlayer & a_Player, cCraftingGrid & a_Grid, cCraftingRecipe & a_Recipe);

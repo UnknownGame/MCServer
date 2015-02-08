@@ -1572,6 +1572,10 @@ void cClientHandle::HandleWindowClick(char a_WindowID, short a_SlotNum, eClickAc
 	}
 	
 	Window->Clicked(*m_Player, a_WindowID, a_SlotNum, a_ClickAction, a_HeldItem);
+
+	cItems HeldItems;
+	HeldItems.Add(a_HeldItem);
+	cRoot::Get()->GetPluginManager()->CallHookPlayerWindowClick(*m_Player, a_WindowID, a_SlotNum, a_ClickAction, HeldItems);
 }
 
 
@@ -2800,9 +2804,15 @@ void cClientHandle::SetViewDistance(int a_ViewDistance)
 	}
 }
 
-
-
-
+void cClientHandle::BroadcastMetadata(void)
+{
+	cWorld * world = m_Player->GetWorld();
+	LOGD("%s is having a skinflags of %d!", GetUsername().c_str(), m_SkinFlags);
+	if (world != nullptr)
+	{
+		world->BroadcastEntityMetadata(* m_Player);
+	}
+}
 
 bool cClientHandle::HasPluginChannel(const AString & a_PluginChannel)
 {
