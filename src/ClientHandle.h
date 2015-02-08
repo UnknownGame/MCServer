@@ -233,9 +233,6 @@ public:  // tolua_export
 	/** Returns the skin flags. */
 	char GetSkinFlags(void) const { return m_SkinFlags; }
 
-	/** Broadcast metadata */
-	void BroadcastMetadata(void);
-
 	/** Returns the view distance that the player request, not the used view distance. */
 	int GetRequestedViewDistance(void) const { return m_RequestedViewDistance; }
 
@@ -255,6 +252,12 @@ public:  // tolua_export
 	
 	// tolua_end
 	
+
+	/** Broadcast metadata */
+	void BroadcastMetadata(void);
+
+	void SendTitle(const AString & a_Title, const AString & a_SubTitle, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks);
+
 	/** Returns true if the client wants the chunk specified to be sent (in m_ChunksToSend) */
 	bool WantsSendChunk(int a_ChunkX, int a_ChunkZ);
 	

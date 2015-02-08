@@ -227,6 +227,7 @@ public:
 	void BroadcastChatFatal  (const AString & a_Message, const cClientHandle * a_Exclude = nullptr) { BroadcastChat(a_Message, a_Exclude, mtFailure); }
 	void BroadcastChatDeath  (const AString & a_Message, const cClientHandle * a_Exclude = nullptr) { BroadcastChat(a_Message, a_Exclude, mtDeath); }
 	void BroadcastChat       (const cCompositeChat & a_Message, const cClientHandle * a_Exclude = nullptr);
+	void BroadcastTitle      (const AString & a_Title, const AString & a_SubTitle = "", int a_FadeinTicks = 15, int a_StayTicks = 50, int a_FadeoutTicks = 15, const cClientHandle * a_Exclude = nullptr);
 	// tolua_end
 
 	void BroadcastChunkData                  (int a_ChunkX, int a_ChunkZ, cChunkDataSerializer & a_Serializer, const cClientHandle * a_Exclude = nullptr);

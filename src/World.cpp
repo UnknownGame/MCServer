@@ -2069,8 +2069,6 @@ void cWorld::BroadcastChat(const AString & a_Message, const cClientHandle * a_Ex
 
 
 
-
-
 void cWorld::BroadcastChat(const cCompositeChat & a_Message, const cClientHandle * a_Exclude)
 {
 	cCSLock Lock(m_CSPlayers);
@@ -2086,6 +2084,19 @@ void cWorld::BroadcastChat(const cCompositeChat & a_Message, const cClientHandle
 }
 
 
+void cWorld::BroadcastTitle(const AString & a_Title, const AString & a_SubTitle, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks, const cClientHandle * a_Exclude)
+{
+	cCSLock Lock(m_CSPlayers);
+	for (cPlayerList::iterator itr = m_Players.begin(); itr != m_Players.end(); ++itr)
+	{
+		cClientHandle * ch = (*itr)->GetClientHandle();
+		if ((ch == a_Exclude) || (ch == nullptr) || !ch->IsLoggedIn() || ch->IsDestroyed())
+		{
+			continue;
+		}
+		ch->SendTitle(a_Title, a_SubTitle, a_FadeinTicks, a_StayTicks, a_FadeoutTicks);
+	}
+}
 
 
 

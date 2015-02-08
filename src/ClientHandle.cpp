@@ -2804,6 +2804,7 @@ void cClientHandle::SetViewDistance(int a_ViewDistance)
 	}
 }
 
+
 void cClientHandle::BroadcastMetadata(void)
 {
 	cWorld * world = m_Player->GetWorld();
@@ -2814,11 +2815,21 @@ void cClientHandle::BroadcastMetadata(void)
 	}
 }
 
+void cClientHandle::SendTitle(const AString & a_Title, const AString & a_SubTitle, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks)
+{
+	m_Protocol->SendTitleAction(4); // 4 - reset title
+	m_Protocol->SendTitleMessage(0, a_Title); // 0 - Set Title
+	if (a_SubTitle != "")
+	{
+		m_Protocol->SendTitleMessage(1, a_SubTitle); // 1 - Set SubTitle
+	}
+	m_Protocol->SendTitleTicks(2, a_FadeinTicks, a_StayTicks, a_FadeoutTicks);
+}
+
 bool cClientHandle::HasPluginChannel(const AString & a_PluginChannel)
 {
 	return (m_PluginChannels.find(a_PluginChannel) != m_PluginChannels.end());
 }
-
 
 
 

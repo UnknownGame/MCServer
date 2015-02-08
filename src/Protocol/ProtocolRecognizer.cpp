@@ -755,7 +755,23 @@ void cProtocolRecognizer::SendTimeUpdate(Int64 a_WorldAge, Int64 a_TimeOfDay, bo
 }
 
 
+void cProtocolRecognizer::SendTitleAction(UInt32 a_Action)
+{
+	ASSERT(m_Protocol != nullptr);
+	m_Protocol->SendTitleAction(a_Action);
+}
 
+void cProtocolRecognizer::SendTitleMessage(UInt32 a_Action, const AString & a_Message)
+{
+	ASSERT(m_Protocol != nullptr);
+	m_Protocol->SendTitleMessage(a_Action, a_Message);
+}
+
+void cProtocolRecognizer::SendTitleTicks(UInt32 a_Action, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks)
+{
+	ASSERT(m_Protocol != nullptr);
+	m_Protocol->SendTitleTicks(a_Action, a_FadeinTicks, a_StayTicks, a_FadeoutTicks);
+}
 
 
 void cProtocolRecognizer::SendUnloadChunk(int a_ChunkX, int a_ChunkZ)

@@ -1343,8 +1343,33 @@ void cProtocol180::SendTimeUpdate(Int64 a_WorldAge, Int64 a_TimeOfDay, bool a_Do
 }
 
 
+void cProtocol180::SendTitleAction(UInt32 a_Action)
+{
+	ASSERT(m_State == 3);  // In game mode?
 
+	cPacketizer Pkt(*this, 0x45);
+	Pkt.WriteVarInt(a_Action);
+}
 
+void cProtocol180::SendTitleMessage(UInt32 a_Action, const AString & a_Message)
+{
+	ASSERT(m_State == 3);  // In game mode?
+
+	cPacketizer Pkt(*this, 0x45);
+	Pkt.WriteVarInt(a_Action);
+	Pkt.WriteString(a_Message);
+}
+
+void cProtocol180::SendTitleTicks(UInt32 a_Action, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks)
+{
+	ASSERT(m_State == 3);  // In game mode?
+
+	cPacketizer Pkt(*this, 0x45);
+	Pkt.WriteVarInt(a_Action);
+	Pkt.WriteInt(a_FadeinTicks);
+	Pkt.WriteInt(a_StayTicks);
+	Pkt.WriteInt(a_FadeoutTicks);
+}
 
 void cProtocol180::SendUnloadChunk(int a_ChunkX, int a_ChunkZ)
 {
@@ -3079,7 +3104,8 @@ void cProtocol180::cPacketizer::WriteEntityMetadata(const cEntity & a_Entity)
 	
 	switch (a_Entity.GetEntityType())
 	{
-		case cEntity::etPlayer: {
+		case cEntity::etPlayer:
+		{
 			WriteByte(0 << 5 | 10 & 0x1F);
 			WriteChar(((const cPlayer &)a_Entity).GetClientHandle() -> GetSkinFlags());
 			break;  // TODO?

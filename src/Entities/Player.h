@@ -240,6 +240,7 @@ public:
 	void SendMessageFatal     (const AString & a_Message) { m_ClientHandle->SendChat(a_Message, mtFailure); }
 	void SendMessagePrivateMsg(const AString & a_Message, const AString & a_Sender) { m_ClientHandle->SendChat(a_Message, mtPrivateMessage, a_Sender); }
 	void SendMessage          (const cCompositeChat & a_Message) { m_ClientHandle->SendChat(a_Message); }
+	void SendTitle(const AString & a_Title, const AString & a_SubTitle = "", int a_FadeinTicks = 15, int a_StayTicks = 50, int a_FadeoutTicks = 15) { m_ClientHandle->SendTitle(a_Title, a_SubTitle, a_FadeinTicks, a_StayTicks, a_FadeoutTicks); }
 
 	const AString & GetName(void) const { return m_PlayerName; }
 	void SetName(const AString & a_Name) { m_PlayerName = a_Name; }

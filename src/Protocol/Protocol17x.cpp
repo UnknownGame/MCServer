@@ -1294,7 +1294,21 @@ void cProtocol172::SendTimeUpdate(Int64 a_WorldAge, Int64 a_TimeOfDay, bool a_Do
 }
 
 
+void cProtocol172::SendTitleAction(UInt32 a_Action)
+{
+	ASSERT(m_State == 3);  // In game mode?
+}
 
+void cProtocol172::SendTitleMessage(UInt32 a_Action, const AString & a_Message)
+{
+	ASSERT(m_State == 3);  // In game mode?
+	SendChat(a_Message);
+}
+
+void cProtocol172::SendTitleTicks(UInt32 a_Action, int a_FadeinTicks, int a_StayTicks, int a_FadeoutTicks)
+{
+	ASSERT(m_State == 3);  // In game mode?
+}
 
 
 void cProtocol172::SendUnloadChunk(int a_ChunkX, int a_ChunkZ)
